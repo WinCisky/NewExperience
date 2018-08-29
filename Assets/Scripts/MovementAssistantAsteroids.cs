@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
-public class Movement : MonoBehaviour {
-    public float speed;
+public class MovementAssistantAsteroids : MonoBehaviour {
+    public float moving_speed;
+    public Vector3 rotating_speed;
 }
 
 //Hybrid ECS
-public class MovementSystem : ComponentSystem
+public class MovementSystemAsteroids : ComponentSystem
 {
-    struct Components
+    struct ComponentsAsteroids
     {
-        public Movement movement;
+        public MovementAssistantAsteroids movement;
         public Transform transform;
     }
-
-    public Transform target;
 
     protected override void OnUpdate()
     {
         float deltaTime = Time.deltaTime * -1;
         Vector3 target = Two.ECS.GameManager.GM.target.transform.position;
-        foreach (var e in GetEntities<Components>())
+        foreach (var e in GetEntities<ComponentsAsteroids>())
         {
-            e.transform.position += new Vector3(0, 0, deltaTime * e.movement.speed);
-            e.transform.rotation *= Quaternion.Euler(2, 2, 2);
+            e.transform.position += new Vector3(0, 0, deltaTime * e.movement.moving_speed);
+            e.transform.rotation *= Quaternion.Euler(e.movement.rotating_speed.x, e.movement.rotating_speed.y, e.movement.rotating_speed.z);
             if (e.transform.position.z < -150)
                 e.transform.position = new Vector3(
                     target.x + Random.Range(-500, +500),
