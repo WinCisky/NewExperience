@@ -5,17 +5,23 @@ using UnityEngine;
 public class FollowRotation : MonoBehaviour {
 
     public Transform target;
-    public bool can_move;
-
+    public bool can_move, block_force;
+    public new Rigidbody rigidbody;
     float max_x = Quaternion.Euler(90, 0, 0).x;
     float max_y = Quaternion.Euler(0, 90, 0).y;
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         float rot_y = target.transform.rotation.y;
         float rot_x = target.transform.rotation.x;
         if (Mathf.Abs(rot_x) < max_x && Mathf.Abs(rot_y) < max_y)
                 transform.rotation = target.transform.rotation;
+
+        if (block_force)
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }
 
         if (can_move)
         {

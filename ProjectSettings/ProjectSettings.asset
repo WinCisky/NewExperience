@@ -135,7 +135,7 @@ PlayerSettings:
       enableVideoLayer: 0
       useProtectedVideoMemory: 0
       minimumSupportedHeadTracking: 0
-      maximumSupportedHeadTracking: 1
+      maximumSupportedHeadTracking: 0
     hololens:
       depthFormat: 1
       depthBufferSharingEnabled: 0
@@ -382,8 +382,7 @@ PlayerSettings:
   m_BuildTargetVRSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 1
-    m_Devices:
-    - OpenVR
+    m_Devices: []
   - m_BuildTarget: Android
     m_Enabled: 1
     m_Devices:

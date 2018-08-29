@@ -1,4 +1,5 @@
 ﻿using Unity.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -18,17 +19,20 @@ namespace Two.ECS
         [Header("Ship stuff")]
         public Transform target;
 
-        //ECS stuff
+        [Header("ECS stuff")]
+        public GameObject asteroid_prefab;
         EntityManager manager;
 
         [Header("Default stuff")]
         public int level = 1;
         public GameObject enemy_prefab;
 
-        const int MAX_RANDOM_Z = 750;
-        const int MIN_RANDOM_Z = 300;
-        const int RANDOM_X = 1000;
-        const int RANDOM_Y = 1000;
+        List<GameObject> asteroids_list;
+
+        const int MAX_RANDOM_Z = 3000;
+        const int MIN_RANDOM_Z = 1500;
+        const int RANDOM_X = 500;
+        const int RANDOM_Y = 500;
         const int MAX_RANDOM_SPEED = 150;
         const int MIN_RANDOM_SPEED = 70;
 
@@ -39,6 +43,7 @@ namespace Two.ECS
             Time.timeScale = 1;
             manager = World.Active.GetOrCreateManager<EntityManager>();
             //AddStuff(level);
+            asteroids_list = new List<GameObject>();
         }
 
         public void GameOver()
@@ -49,8 +54,28 @@ namespace Two.ECS
 
         public void AddStuff(int type)
         {
+            //PURE ECS
             //spawn 96 enemies after 1 seconds
-            StartCoroutine(AddMoreStuff(0, 1, 32000));
+            //StartCoroutine(AddMoreStuff(0, 1, 32000));
+
+            //HYBRID ECS
+            asteroids_list = InstantiateStuff(asteroids_list, asteroid_prefab, 500);
+        }
+
+        private List<GameObject> InstantiateStuff(List<GameObject> list, GameObject go, int amount)
+        {
+            List<GameObject> result = list;
+            for (int i = 0; i < amount; i++)
+            {
+                GameObject g = Instantiate(go);
+                go.transform.position = new Vector3(
+                    go.transform.position.x + Random.Range(target.transform.position.x - RANDOM_X, target.transform.position.x + RANDOM_X),
+                    go.transform.position.y + Random.Range(target.transform.position.y - RANDOM_Y, target.transform.position.y + RANDOM_Y),
+                    Random.Range(MIN_RANDOM_Z, MAX_RANDOM_Z));
+                go.GetComponent<Movement>().speed = Random.Range(120, 180);
+                result.Add(g);
+            }
+            return result;
         }
 
         private IEnumerator AddMoreStuff(int type, int time, int amount)
