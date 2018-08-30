@@ -8,6 +8,7 @@ ModelImporter:
     400000: //RootNode
     400002: default
     2100000: Comet_mat
+    2100002: defaultMat
     2300000: default
     3300000: default
     4300000: default
@@ -16,6 +17,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Comet_mat
+    second: {fileID: 2100000, guid: 7e92de1a7d1401b469c0b1d8336ef6b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
     second: {fileID: 2100000, guid: 7e92de1a7d1401b469c0b1d8336ef6b9, type: 2}
   materials:
     importMaterials: 1

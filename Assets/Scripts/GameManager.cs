@@ -67,8 +67,8 @@ namespace Two.ECS
             //StartCoroutine(AddMoreStuff(0, 1, 32000));
 
             //HYBRID ECS
-            //asteroids_list = InstantiateStuff(0, asteroids_list, asteroids_meshes, asteroid_prefab, asteroids_father, 500, true);
-            comets_list = InstantiateStuff(1, comets_list, comets_meshes, comet_prefab, comets_father, 200, true);
+            asteroids_list = InstantiateStuff(0, asteroids_list, asteroids_meshes, asteroid_prefab, asteroids_father, 500, true);
+            //comets_list = InstantiateStuff(1, comets_list, comets_meshes, comet_prefab, comets_father, 200, true);
         }
 
         private List<GameObject> InstantiateStuff(int type, List<GameObject> list, Mesh[] meshes, GameObject go, GameObject father, int amount, bool random_meshes)

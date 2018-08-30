@@ -14,7 +14,9 @@ public class ButtonPress : MonoBehaviour {
     private BoxCollider myCollider;
     // Is player looking at me?
     private bool isLookedAt = false;
-    public GameObject IntroManager;
+    public GameObject IntroManager, GameManager;
+
+    public int action = 0;
 
     // MonoBehaviour Start
     void Start()
@@ -41,10 +43,22 @@ public class ButtonPress : MonoBehaviour {
 
                 // disable collider
                 myCollider.enabled = false;
-
-                IntroManager.GetComponent<Intro>().GameIntro();
+                switch (action)
+                {
+                    case 0:
+                        IntroManager.GetComponent<Intro>().GameIntro();
+                        break;
+                    case 1:
+                        GameManager.GetComponent<ToogleVR>().ToggleVRMode();
+                        break;
+                    default:
+                        break;
+                }
                 // Disappear
-                gameObject.SetActive(false);
+                if (action != 1)
+                    gameObject.SetActive(false);
+                else
+                    image.fillAmount = 1;
             }
         }
         else

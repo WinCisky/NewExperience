@@ -8,6 +8,7 @@ ModelImporter:
     400000: default
     400002: //RootNode
     2100000: Asteroids_Mat
+    2100002: defaultMat
     2300000: default
     3300000: default
     4300000: default
@@ -16,6 +17,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Asteroids_Mat
+    second: {fileID: 2100000, guid: b009873335d2f0b41beabbfe7cfe9520, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
     second: {fileID: 2100000, guid: b009873335d2f0b41beabbfe7cfe9520, type: 2}
   materials:
     importMaterials: 1
