@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d33b14c9e9a2ae42983ae0511152885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 499887380}
+  _smoothing: 0.1
 --- !u!1 &436649091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,11 +1288,19 @@ MonoBehaviour:
   - {fileID: 4300000, guid: 8d2328ddd802446429df5eb015602be4, type: 3}
   - {fileID: 4300000, guid: c6d955c5f9114d44c9ddcbe36df0c0be, type: 3}
   - {fileID: 4300000, guid: ef74eca8a69425642b6cb6856256f90d, type: 3}
-  comet_prefab: {fileID: 1017244029698810, guid: b3781982413c7224e8145ff3de873ac3,
+  comet_prefabs: {fileID: 1017244029698810, guid: b3781982413c7224e8145ff3de873ac3,
     type: 2}
   comets_father: {fileID: 2066524076}
   comets_meshes:
-  - {fileID: 4300000, guid: 25edd7c3683f0e040b7f7362dd34ed4e, type: 3}
+  - {fileID: 4300002, guid: da8adb4ecd7470743b4f06867a9ef47b, type: 3}
+  - {fileID: 4300000, guid: 42f8222db1ec68c49a65ea4acdafea12, type: 3}
+  - {fileID: 4300002, guid: 1a0ac9449bcfb5a4094a6a554825ce2e, type: 3}
+  - {fileID: 4300000, guid: 35a0c211ba13e414592e47cd2f5f2652, type: 3}
+  comets_materials:
+  - {fileID: 2300002, guid: da8adb4ecd7470743b4f06867a9ef47b, type: 3}
+  - {fileID: 2300000, guid: 42f8222db1ec68c49a65ea4acdafea12, type: 3}
+  - {fileID: 2300002, guid: 1a0ac9449bcfb5a4094a6a554825ce2e, type: 3}
+  - {fileID: 2300000, guid: 35a0c211ba13e414592e47cd2f5f2652, type: 3}
   level: 1
   enemy_prefab: {fileID: 1905958983595268, guid: 83633d3cd26c4714fb917fa66a7bc123,
     type: 2}
@@ -1609,10 +1617,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cf3d5c46650274eb70675b6e789d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu_ui: {fileID: 680630778}
   player_ship: {fileID: 1605577331}
   player_camera: {fileID: 395736818}
-  player_camera_animator: {fileID: 0}
+  menu_ui:
+  - {fileID: 680630778}
+  - {fileID: 1775218686}
 --- !u!1001 &1605577330
 Prefab:
   m_ObjectHideFlags: 0
@@ -2104,7 +2113,7 @@ GameObject:
   - component: {fileID: 1775218688}
   - component: {fileID: 1775218687}
   m_Layer: 0
-  m_Name: main_menu (1)
+  m_Name: settings_menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,8 +7,9 @@ public class MovementAssistantComet : MonoBehaviour {
     public Rigidbody rb;
     public TrailRenderer tr;
     //0 to 1
-    public float rotating_speed;
+    public Vector3 rotating_speed;
     public float movementSpeed;
+    public bool has_trail;
 }
 
 //Hybrid ECS
@@ -25,14 +26,15 @@ public class MovementSystemComet : ComponentSystem
         Vector3 target = Two.ECS.GameManager.GM.target.transform.position;
         foreach (var e in GetEntities<ComponentsComet>())
         {
-            e.transform.rotation *= Quaternion.Euler(0, 0, 1*e.movement.rotating_speed);
+            e.transform.rotation *= Quaternion.Euler(1 * e.movement.rotating_speed.x, 1 * e.movement.rotating_speed.y, 1 * e.movement.rotating_speed.z);
             if (e.transform.position.z < -150)
             {
                 e.transform.position = new Vector3(
                     target.x + Random.Range(-350, +350),
                     target.y + Random.Range(-350, +350),
                     1500);
-                e.movement.tr.Clear();
+                if (e.movement.has_trail)
+                    e.movement.tr.Clear();
                 e.movement.rb.velocity = Vector3.zero;
                 e.movement.rb.angularVelocity = Vector3.zero;
                 e.transform.rotation = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), 0);

@@ -9,49 +9,78 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1017244029698810}
+  m_RootGameObject: {fileID: 1394366965361136}
   m_IsPrefabAsset: 1
---- !u!1 &1017244029698810
+--- !u!1 &1394366965361136
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4596438435193110}
-  - component: {fileID: 33137405520423130}
-  - component: {fileID: 23999879529008662}
-  - component: {fileID: 114336494520289034}
-  - component: {fileID: 114558919626644228}
-  - component: {fileID: 64946362695625264}
-  - component: {fileID: 54337509994402680}
-  - component: {fileID: 96267190098944378}
+  - component: {fileID: 4800066416964464}
+  - component: {fileID: 64248173988292308}
+  - component: {fileID: 96403180623891694}
+  - component: {fileID: 54583363883417074}
+  - component: {fileID: 114079336019573884}
+  - component: {fileID: 114888652767855728}
   m_Layer: 0
-  m_Name: CometHybridECS
+  m_Name: PrefabISS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4596438435193110
+--- !u!1 &1450839972563780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4805405859791630}
+  - component: {fileID: 33907531969431492}
+  - component: {fileID: 23027556162948876}
+  m_Layer: 0
+  m_Name: InternationalSpaceStation_mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4800066416964464
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
-  m_Children: []
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_Children:
+  - {fileID: 4805405859791630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23999879529008662
+--- !u!4 &4805405859791630
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450839972563780}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4800066416964464}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23027556162948876
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1450839972563780}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +90,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7e92de1a7d1401b469c0b1d8336ef6b9, type: 2}
+  - {fileID: 2100000, guid: 39d247c9404dda949b46b59082d89419, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,49 +110,49 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33137405520423130
+--- !u!33 &33907531969431492
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54337509994402680
+  m_GameObject: {fileID: 1450839972563780}
+  m_Mesh: {fileID: 4300000, guid: 35a0c211ba13e414592e47cd2f5f2652, type: 3}
+--- !u!54 &54583363883417074
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64946362695625264
+--- !u!64 &64248173988292308
 MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
---- !u!96 &96267190098944378
+  m_Mesh: {fileID: 4300000, guid: 35a0c211ba13e414592e47cd2f5f2652, type: 3}
+--- !u!96 &96403180623891694
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -218,29 +247,29 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 1
   m_Emitting: 1
---- !u!114 &114336494520289034
+--- !u!114 &114079336019573884
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114558919626644228
+--- !u!114 &114888652767855728
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017244029698810}
+  m_GameObject: {fileID: 1394366965361136}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e1fd27d89165e6469844f9438081b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 54337509994402680}
+  rb: {fileID: 54583363883417074}
   tr: {fileID: 0}
   rotating_speed: {x: 0, y: 0, z: 0}
   movementSpeed: 0

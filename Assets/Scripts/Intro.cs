@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Intro : MonoBehaviour {
 
-    public GameObject menu_ui, player_ship, player_camera;
-    public Animator player_camera_animator;
+    public GameObject player_ship, player_camera;
+    public GameObject[] menu_ui;
 
     public void GameIntro()
     {
-        menu_ui.gameObject.SetActive(false);
+        foreach (var item in menu_ui)
+            item.SetActive(false);
         StartCoroutine(PlaceShip(new Vector3(0, 0, 100), 60));
     }
+
+    public void Level3Intro()
+    {
+        foreach (var item in menu_ui)
+            item.SetActive(false);
+        StartCoroutine(PlaceShip(new Vector3(0, 0, 300), 60));
+    }
+
+    public
     
     IEnumerator PlaceShip(Vector3 start_point, float speed)
     {
@@ -27,4 +37,6 @@ public class Intro : MonoBehaviour {
         //il giocatore è in posizione
         Two.ECS.GameManager.GM.AddStuff(0);
     }
+
+
 }

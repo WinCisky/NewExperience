@@ -23,17 +23,15 @@ namespace Two.ECS
         public GameObject asteroid_prefab;
         public GameObject asteroids_father;
         public Mesh[] asteroids_meshes;
-        public GameObject comet_prefab;
+        public GameObject comet_prefabs;
         public GameObject comets_father;
         public Mesh[] comets_meshes;
+        public MeshRenderer[] comets_materials;
         EntityManager manager;
 
         [Header("Default stuff")]
         public int level = 1;
         public GameObject enemy_prefab;
-
-        List<GameObject> asteroids_list;
-        List<GameObject> comets_list;
 
         const int MAX_RANDOM_Z = 3000;
         const int MIN_RANDOM_Z = 1500;
@@ -50,8 +48,6 @@ namespace Two.ECS
             Time.timeScale = 1;
             manager = World.Active.GetOrCreateManager<EntityManager>();
             //AddStuff(level);
-            asteroids_list = new List<GameObject>();
-            comets_list = new List<GameObject>();
         }
 
         public void GameOver()
@@ -67,23 +63,17 @@ namespace Two.ECS
             //StartCoroutine(AddMoreStuff(0, 1, 32000));
 
             //HYBRID ECS
-            asteroids_list = InstantiateStuff(0, asteroids_list, asteroids_meshes, asteroid_prefab, asteroids_father, 500, true);
-            //comets_list = InstantiateStuff(1, comets_list, comets_meshes, comet_prefab, comets_father, 200, true);
+            //InstantiateStuff(0, asteroids_meshes, null, asteroid_prefab, asteroids_father, 500, true);
+            InstantiateStuff(1, comets_meshes, comets_materials, comet_prefabs, comets_father, 200, true);
         }
 
-        private List<GameObject> InstantiateStuff(int type, List<GameObject> list, Mesh[] meshes, GameObject go, GameObject father, int amount, bool random_meshes)
+        private void InstantiateStuff(int type, Mesh[] meshes, MeshRenderer[] materials, GameObject go, GameObject father, int amount, bool random_meshes)
         {
-            List<GameObject> result = list;
             for (int i = 0; i < amount; i++)
             {
                 GameObject g = Instantiate(go);
                 g.transform.SetParent(father.transform);
-                if (random_meshes)
-                {
-                    int random = Random.Range(0, meshes.Length);
-                    g.GetComponent<MeshFilter>().mesh = meshes[random];
-                    g.GetComponent<MeshCollider>().sharedMesh = meshes[random];
-                }
+                
                 g.transform.position = new Vector3(
                     g.transform.position.x + Random.Range(target.transform.position.x - RANDOM_X, target.transform.position.x + RANDOM_X),
                     g.transform.position.y + Random.Range(target.transform.position.y - RANDOM_Y, target.transform.position.y + RANDOM_Y),
@@ -91,6 +81,14 @@ namespace Two.ECS
                 switch (type)
                 {
                     case 0: //Asteroids
+                        if (random_meshes)
+                        {
+                            int random = Random.Range(0, meshes.Length);
+                            g.GetComponent<MeshFilter>().mesh = meshes[random];
+                            g.GetComponent<MeshCollider>().sharedMesh = meshes[random];
+                            if (materials != null)
+                                g.GetComponent<MeshRenderer>().materials = materials[random].sharedMaterials;
+                        }
                         g.GetComponent<MovementAssistantAsteroids>().moving_speed = Random.Range(120, 180);
                         g.GetComponent<MovementAssistantAsteroids>().rotating_speed = new Vector3(
                             Random.Range(-ROTATING_SPEED, ROTATING_SPEED),
@@ -98,15 +96,50 @@ namespace Two.ECS
                             Random.Range(-ROTATING_SPEED, ROTATING_SPEED));
                         break;
                     case 1: //Comets
-                        float ms = Random.Range(250, 500);
+                        float ms;
+                        if (i % 100 == 0) //ISS (mini boss)
+                        {
+                            if (materials != null)
+                                g.GetComponentInChildren<MeshRenderer>().materials = materials[materials.Length - 1].sharedMaterials;
+                            g.GetComponentInChildren<MeshFilter>().mesh = meshes[meshes.Length - 1];
+                            g.GetComponent<MeshCollider>().sharedMesh = meshes[meshes.Length - 1];
+                            ms = 200;
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.z = ms * 0.001f;
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.x = Random.Range(ms * 0.0001f, ms * 0.001f);
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.y = Random.Range(ms * 0.0001f, ms * 0.001f);
+                            g.GetComponent<TrailRenderer>().enabled = false;
+                            g.GetComponent<MovementAssistantComet>().has_trail = false;
+                        }
+                        else
+                        {
+                            int random = i % (meshes.Length - 1);
+                            g.GetComponent<MeshFilter>().mesh = meshes[random];
+                            g.GetComponent<MeshCollider>().sharedMesh = meshes[random];
+                            if (materials != null)
+                                g.GetComponent<MeshRenderer>().materials = materials[random].sharedMaterials;
+                            ms = Random.Range(250, 500);
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.z = ms * 0.01f;
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.x = Random.Range(ms * 0.001f, ms * 0.005f);
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.y = Random.Range(ms * 0.001f, ms * 0.005f);
+                            g.GetComponent<MovementAssistantComet>().has_trail = true;
+                        }
                         g.GetComponent<MovementAssistantComet>().movementSpeed = ms;
-                        g.GetComponent<MovementAssistantComet>().rotating_speed = ms * 0.02f;
                         if (Random.Range(0, 1) == 0)
-                            g.GetComponent<MovementAssistantComet>().rotating_speed *= -1;
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.x *= -1;
+                        if (Random.Range(0, 1) == 0)
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.y *= -1;
+                        if (Random.Range(0, 1) == 0)
+                            g.GetComponent<MovementAssistantComet>().rotating_speed.z *= -1;
                         g.GetComponent<MovementAssistantComet>().rb = g.GetComponent<Rigidbody>();
                         g.GetComponent<MovementAssistantComet>().tr = g.GetComponent<TrailRenderer>();
                         g.transform.rotation = Quaternion.Euler(Random.Range(-10, 10), Random.Range(-10, 10), 0);
                         g.GetComponent<Rigidbody>().AddForce(-g.transform.forward * ms, ForceMode.Impulse);
+                        break;
+                    case 2: //Ships
+
+                        break;
+                    case 3: //Bullets
+
                         break;
                     default:
                         //ERROR
@@ -114,9 +147,7 @@ namespace Two.ECS
 
                 }
                 
-                result.Add(g);
             }
-            return result;
         }
 
         private IEnumerator AddMoreStuff(int type, int time, int amount)
