@@ -19,19 +19,24 @@ namespace Two.ECS
         [Header("Ship stuff")]
         public Transform target;
 
-        [Header("ECS stuff")]
+        [Header("ECS Asteroids")]
         public GameObject asteroid_prefab;
         public GameObject asteroids_father;
         public Mesh[] asteroids_meshes;
+        [Header("ECS Comets")]
         public GameObject comet_prefabs;
         public GameObject comets_father;
         public Mesh[] comets_meshes;
         public MeshRenderer[] comets_materials;
         EntityManager manager;
+        [Header("ECS Enemies")]
+        public GameObject Ship;
+        public GameObject Bullet;
 
-        [Header("Default stuff")]
+        [Header("Global variables")]
         public int level = 1;
         public GameObject enemy_prefab;
+        public List<Transform> enemies_ships;
 
         const int MAX_RANDOM_Z = 3000;
         const int MIN_RANDOM_Z = 1500;
@@ -47,6 +52,7 @@ namespace Two.ECS
             GM = this;
             Time.timeScale = 1;
             manager = World.Active.GetOrCreateManager<EntityManager>();
+            enemies_ships = new List<Transform>();
             //AddStuff(level);
         }
 
@@ -64,7 +70,26 @@ namespace Two.ECS
 
             //HYBRID ECS
             //InstantiateStuff(0, asteroids_meshes, null, asteroid_prefab, asteroids_father, 500, true);
-            InstantiateStuff(1, comets_meshes, comets_materials, comet_prefabs, comets_father, 200, true);
+            //InstantiateStuff(1, comets_meshes, comets_materials, comet_prefabs, comets_father, 200, true);
+
+            GameObject go = Instantiate(Ship);
+            go.GetComponent<ShipFollow>().target = target;
+            int j = 0;
+            foreach (var item in go.GetComponentsInChildren<ShipBulletManager>())
+            {
+                item.bullets = new GameObject[10];
+                enemies_ships.Add(go.GetComponentsInChildren<ShipBulletManager>()[j].cannon);
+                for (int i = 0; i < 10; i++)
+                {
+                    GameObject g = Instantiate(Bullet);
+                    g.GetComponent<MovementAssistantBullet>().usable = true;
+                    g.GetComponent<MovementAssistantBullet>().reset = true;
+                    g.GetComponent<MovementAssistantBullet>().id = j;
+                    item.bullets[i] = g;
+                }
+                j++;
+            }
+
         }
 
         private void InstantiateStuff(int type, Mesh[] meshes, MeshRenderer[] materials, GameObject go, GameObject father, int amount, bool random_meshes)

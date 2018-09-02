@@ -5,8 +5,10 @@ using UnityEngine;
 public class FollowRotation : MonoBehaviour {
 
     public Transform target;
-    public bool can_move, block_force;
+    //add force is for planet gravity field
+    public bool can_move, block_force, add_force;
     public new Rigidbody rigidbody;
+    public Vector2 planet_gravity_force;
     float max_x = Quaternion.Euler(90, 0, 0).x;
     float max_y = Quaternion.Euler(0, 90, 0).y;
 
@@ -31,7 +33,9 @@ public class FollowRotation : MonoBehaviour {
                 x = x - 360;
             if (y > 180)
                 y = y - 360;
-            transform.position += new Vector3(y / 30, -x / 30, 0);
+            transform.position += new Vector3(
+                (y / 30) + planet_gravity_force.x,
+                (-x / 30) + planet_gravity_force.y, 0);
         }
             
     }
