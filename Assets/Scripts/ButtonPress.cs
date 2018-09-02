@@ -46,7 +46,7 @@ public class ButtonPress : MonoBehaviour {
                 switch (action)
                 {
                     case 0:
-                        IntroManager.GetComponent<Intro>().GameIntro();
+                        IntroManager.GetComponent<Intro>().Level3Intro();
                         break;
                     case 1:
                         GameManager.GetComponent<ToogleVR>().ToggleVRMode();
